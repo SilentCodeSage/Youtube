@@ -3,7 +3,6 @@ import { commentUserImg } from "./utils/constants";
 
 const Comments = ({ data }) => {
   const { name, text, replies } = data;
-  console.log(replies);
   return (
     <div>
       <div className="px-5 ml-32 py-2 my-2 rounded-xl flex items-center bg-gray-100">

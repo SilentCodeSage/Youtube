@@ -173,7 +173,7 @@ const comments = [
 
 const CommentsContainer = () => {
   return (
-    <div>
+    <div className="w-8/12">
       <div>
         <h1 className="font-bold text-2xl px-5 pl-32 pt-5">Comments:</h1>
       </div>
