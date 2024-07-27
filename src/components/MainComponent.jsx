@@ -13,7 +13,7 @@ const MainComponent = () => {
     }
   
   return (
-    <div className=' ml-44 w-11/12 mr-8 mx-16 '>
+    <div className=' w-11/12'>
         <Buttonlist />
         <VideoContainer />
     </div>

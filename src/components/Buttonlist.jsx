@@ -2,23 +2,38 @@ import React from 'react'
 import Button from './Button'
 
 const Buttonlist = () => {
+  const categories = [
+    'Home',
+    'Trending',
+    'Subscriptions',
+    'Library',
+    'Music',
+    'Shorts',
+    'Gaming',
+    'Movies',
+    'Sports',
+    'Playlists',
+    'Notifications',
+    'Live',
+    'News',
+    'Tech',
+    'Science',
+    'Education',
+    'Vlogs',
+  ];
+  
+  
   return (
-    <div className='flex mx-2'>
-      <Button name="music"/>
-      <Button name="science"/>
-      <Button name="news"/>
-      <Button name="movies"/>
-      <Button name="rain"/>
-      <Button name="exam"/>
-      <Button name="motivation"/>
-      <Button name="computers"/>
-      <Button name="javascript"/>
-      <Button name="java"/>
-      <Button name="exam"/>
-      <Button name="motivation"/>
-      <Button name="computers"/>
-      <Button name="javascript"/>
-      <Button name="java"/>
+    <div className='bg-white '>
+      
+      <div className='flex px-2 fixed bg-white  w-full'>
+      
+      {
+        categories.map((data,index)=>{
+           return <Button key={index} name={data}/>
+        })
+      }
+    </div>
     </div>
   )
 }
