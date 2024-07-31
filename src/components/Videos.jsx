@@ -27,7 +27,7 @@ const Videos = ({ info }) => {
   return (
   <div>
     {
-      channelImage !== null?<div className="w-96  rounded-md p-2 m-4 h-auto">
+      channelImage !== null?<div className="w-96 md:w-80 2xl:w-96  rounded-md p-2 m-4 h-auto">
       <div className="h-52 ">
         <img className="rounded-xl w-full h-full object-cover border-none" src={high.url} alt="" />
       </div>

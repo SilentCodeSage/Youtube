@@ -36,9 +36,7 @@ const fetchData = async() =>{
       <div className="flex justify-between">
         <div>
           <iframe
-            className="rounded-xl my-4 ml-32"
-            width="1200"
-            height="650"
+            className="md:rounded-xl my-4  md:w-[1200px] md:h-[650px] w-screen h-64"  
             src={`https://www.youtube.com/embed/${searchParams.get(
               "v"
             )}?autoplay=1`}
@@ -56,7 +54,7 @@ const fetchData = async() =>{
          
         </div>
       </div>
-      <CommentsContainer />
+      {/* <CommentsContainer /> */}
     </div>
   );
 };
