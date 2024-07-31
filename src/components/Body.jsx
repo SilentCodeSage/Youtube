@@ -10,7 +10,7 @@ const isMenuOpen = useSelector((store) => store.app.isOpen);
   
   return (
     <div >
-      <div className='flex mt-14 '>
+      <div className='flex md:mt-14 mt-10 md:pt-0 pt-4'>
         {
           // if(isMenuOpen is false) return null;
           isMenuOpen === true? <Sidebar />:  <SmallSideBar />

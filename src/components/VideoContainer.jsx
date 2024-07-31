@@ -11,26 +11,21 @@ const VideoContainer = () => {
     },[])
 
     const getVideos = async () =>{
-        //fetch maincomponente videos info
+        // Fetch video data
         const api = await fetch(video_API);
-        const {items} = await api.json();
+        const { items } = await api.json();
         setVideos(items);
     }
-    
 
-  return videos===null?null: (
-    <div className='w-12/12 grid md:grid-cols-4 sm:grid-cols-1 mt-14'>
-       {
-        videos.map((data) =>{
-            return (
-
-                //base url id /wactch and the rest is dummmy data as queryy paramater to make look like yt
-                <Link key={data.id} to={"/watch?v="+data.id}><Videos info={data}/></Link>
-            )
-        })
-       }
-    </div>
-  )
+    return videos === null ? null : (
+        <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 mt-14'>
+            {videos.map((data) => (
+                <Link key={data.id} to={"/watch?v=" + data.id}>
+                    <Videos info={data} />
+                </Link>
+            ))}
+        </div>
+    );
 }
 
-export default VideoContainer
+export default VideoContainer;
