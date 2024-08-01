@@ -5,6 +5,7 @@ const appSlice = createSlice({
   initialState: {
     isOpen: false,
     isClicked: false,
+    isSuggestions:false,
   },
   reducers: {
     toggleMenu: (state) => {
@@ -17,8 +18,11 @@ const appSlice = createSlice({
     toggleState: (state) => {
       state.isClicked = true; // Toggles the stateNow value
     },
+    toggleSuggestions: (state,action) => {
+      state.isSuggestions = action.payload; // Toggles the stateNow value
+    },
   },
 });
 
 export default appSlice.reducer;
-export const { toggleMenu, closeMenu, toggleState } = appSlice.actions;
+export const { toggleMenu, closeMenu, toggleState,toggleSuggestions } = appSlice.actions;

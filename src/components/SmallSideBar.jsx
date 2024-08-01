@@ -9,8 +9,8 @@ import {
 
 const SmallSideBar = () => {
   return (
-    <div className='md:mr-32'>
-      <div className=" md:block hidden bg-white fixed w-1.5/12 py-8 px-3 shadow h-screen overflow-hidden hover:overflow-y-auto">
+    <div className='md:mr-28'>
+      <div className=" md:block hidden bg-white fixed w-1.5/12 py-8  shadow h-screen overflow-hidden hover:overflow-y-auto">
         <h1 className="flex flex-col items-center mb-8 text-xs font-light">
           <FontAwesomeIcon
             icon={faHome}

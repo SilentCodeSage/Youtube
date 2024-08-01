@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 
 const SearchResults = () => {
   const [searchList, setSearchList] = useState([]);
+  const [channelImage, setChannelImage] = useState({});
 
   const searchQueryString = useSelector((store) => store.search.searchQuery);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -17,13 +19,28 @@ const SearchResults = () => {
     );
     const json = await data.json();
     setSearchList(json.items);
+
+    const ids = json.items.map((data) => {
+      return data.snippet.channelId;
+    });
+    const querryString = ids.join(",");
+    const info = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${querryString}&key=AIzaSyBteBxDlUGtpjqbjrXn9Ekk2r3m_wnIbYI`
+    );
+    const images = await info.json();
+
+    const channelImages = images.items.reduce((acc, channel) => {
+      acc[channel.id] = channel.snippet.thumbnails.high.url;
+      return acc;
+    }, {});
+    setChannelImage(channelImages);
   };
   return (
     <div>
       {searchList.map((data) => {
         return (
           <Link key={data.id} to={"/watch?v=" + data.id.videoId}>
-            <SearchedResultVideos data={data} />
+            <SearchedResultVideos data={data} channelImages={channelImage[data.snippet.channelId]}/>
           </Link>
         );
       })}
