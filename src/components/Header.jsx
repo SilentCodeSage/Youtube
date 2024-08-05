@@ -80,7 +80,7 @@ const Header = () => {
             <div className="flex  justify-end md:justify-center w-full">
               <input
                 placeholder="Search"
-                className="border rounded-full md:rounded-l-full w-2 md:w-full h-10 px-8 text-black focus:ml-0 focus:outline-gray-200 focus:w-full md:focus:outline-gray-300 focus:shadow-inner"
+                className="border rounded-full md:rounded-l-full md:rounded-r-none w-1 h-10 md:w-full md:h-10 px-8 text-black focus:ml-0 focus:outline-gray-200 focus:w-full md:focus:outline-gray-300 focus:shadow-inner"
                 type="text"
                 name="search"
                 id=""

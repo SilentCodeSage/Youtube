@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { video_API } from './utils/constants';
 import Videos from './Videos';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setVideoData } from './utils/videoSlice';
+import { useSelector } from 'react-redux';
 
 const VideoContainer = () => {
-    const [videos, setVideos] = useState(null);
     const [channelImages,setChannelImages] = useState({});
+
+    const dispatch = useDispatch();
+    const info = useSelector((store) => store.video.videoData);                                                                                                                                                                                                                         
 
     useEffect(() =>{
         getVideos();
@@ -13,15 +17,16 @@ const VideoContainer = () => {
 
     const getVideos = async () =>{
         //fetch video api for video info
-        const api = await fetch(video_API);
+        const api = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=50&key=AIzaSyADJHNQq-nUrY0D0YeyLODt7OFkPPfoxW0`);
         const { items } = await api.json();
-        setVideos(items);
+        dispatch(setVideoData(items))
 
         //channel id fetch
         const ids = items.map((data) => {
             return data.snippet.channelId;
         });
 
+        
         const querryString = ids.join(",");
         
         //batch to reduce api calls
@@ -37,9 +42,9 @@ const VideoContainer = () => {
         setChannelImages(images);
     }
 
-    return videos === null ? null : (
+    return info === null ? null : (
         <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-12 mt-14'>
-            {videos.map((data) => (
+            {info.map((data) => (
                 <Link key={data.id} to={"/watch?v=" + data.id}>
                     <Videos info={data} channelImage={channelImages[data.snippet.channelId]} />
                 </Link>

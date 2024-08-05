@@ -5,14 +5,16 @@ import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
 import { setLiveChat } from "./utils/liveChatSlice";
+import PlayingVideoInfo from "./PlayingVideoInfo";
+import Reccomendation from "./Reccomendation";
 
 const Watch = () => {
+  
   const dispatch = useDispatch();
   const isLiveChatEnabled = useSelector((store)=>store.livechat);
 
   // It allows you to access the query parameters (the parts of the URL that come after the ?).
   const [searchParams] = useSearchParams();
-  //console.log(searchParams.get("v"));
 
   useEffect(() => {
     dispatch(closeMenu());
@@ -20,6 +22,7 @@ const Watch = () => {
   }, []);
 
 const fetchData = async() =>{
+
   const data =  await fetch(`https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=${searchParams.get("v")}&key=AIzaSyADJHNQq-nUrY0D0YeyLODt7OFkPPfoxW0`)
   
   const json = await data.json();
@@ -32,11 +35,11 @@ const fetchData = async() =>{
    
 }
   return (
-    <div className="w-full mt-4">
-      <div className="flex justify-between">
-        <div>
+    <div className=" w-full md:mt-4">
+      <div className="flex md:flex-row flex-col justify-between ">
+        <div className="md:w-8/12 h-8/12">
           <iframe
-            className="md:rounded-xl my-4  md:w-[1200px] md:h-[650px] w-screen h-64"  
+            className="md:rounded-xl md:my-4 p-2 md:w-full md:h-[650px] w-full h-64"  
             src={`https://www.youtube.com/embed/${searchParams.get(
               "v"
             )}?autoplay=1`}
@@ -45,15 +48,21 @@ const fetchData = async() =>{
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
+          <PlayingVideoInfo />
         </div>
+        
         <div className="">
           {/* render this component only if the playing vidoe has a liveVideoId */}
           {
-            isLiveChatEnabled && <LiveChat/>
+            //isLiveChatEnabled && <LiveChat/>
           }
          
         </div>
+        <Reccomendation id={searchParams.get("v")} />
+        
+
       </div>
+      
       {/* <CommentsContainer /> */}
     </div>
   );

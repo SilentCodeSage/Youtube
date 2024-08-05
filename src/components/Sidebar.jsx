@@ -1,12 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faFilm, faStream, faHistory, faPlay, faVideo, faClock, faThumbsUp, faFire, faMusic, faTv, faGamepad, faFutbol } from "@fortawesome/free-solid-svg-icons";
+import { 
+  faHome, faFilm, faStream, faHistory, faPlay, faVideo, faClock, faThumbsUp, 
+  faFire, faMusic, faTv, faGamepad, faFutbol, faNewspaper, faGraduationCap, 
+  faTshirt, faPodcast 
+} from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { setVideoData } from "./utils/videoSlice";
+import { categoryIds } from "./utils/constants";
+
 
 const Sidebar = () => {
+  const handleExploreClick = async (category) => {
+    const data = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=50&videoCategoryId=${categoryIds[category]}&key=AIzaSyADJHNQq-nUrY0D0YeyLODt7OFkPPfoxW0`);
+      const json = await data.json();
+      dispatch(setVideoData(json.items))
+  };
+  const dispatch = useDispatch()
   return (
     <div className="absolute left-0 md:relative z-10 bg-white mr-52 overflow-hidden hover:overflow-y-scroll">
-      <div className="bg-white fixed w-1.5/12 px-8 py-2 pb-8 shadow h-screen hover:overflow-scroll">
+      <div className="bg-white fixed w-1.5/12 px-8 py-2 pb-32 shadow h-screen hover:overflow-scroll">
         <Link to="/">
           <h1 className="flex items-center text-base font-normal py-2 rounded-lg hover:bg-gray-100 cursor-pointer">
             <FontAwesomeIcon icon={faHome} className="text-gray-500 mr-3 w-5 h-5" />
@@ -77,25 +91,68 @@ const Sidebar = () => {
         </ul>
         <h1 className="font-semibold mt-6 text-base mb-1">Explore</h1>
         <ul>
-          <li className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Trending")}
+          >
             <FontAwesomeIcon icon={faFire} className="text-gray-500 mr-3 w-5 h-5" />
             Trending
           </li>
-          <li className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Music")}
+          >
             <FontAwesomeIcon icon={faMusic} className="text-gray-500 mr-3 w-5 h-5" />
             Music
           </li>
-          <li className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Movies")}
+          >
             <FontAwesomeIcon icon={faTv} className="text-gray-500 mr-3 w-5 h-5" />
             Movies
           </li>
-          <li className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Gaming")}
+          >
             <FontAwesomeIcon icon={faGamepad} className="text-gray-500 mr-3 w-5 h-5" />
             Gaming
           </li>
-          <li className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer">
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Sports")}
+          >
             <FontAwesomeIcon icon={faFutbol} className="text-gray-500 mr-3 w-5 h-5" />
             Sports
+          </li>
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("News")}
+          >
+            <FontAwesomeIcon icon={faNewspaper} className="text-gray-500 mr-3 w-5 h-5" />
+            News
+          </li>
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Courses")}
+          >
+            <FontAwesomeIcon icon={faGraduationCap} className="text-gray-500 mr-3 w-5 h-5" />
+            Courses
+          </li>
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Fashion & Beauty")}
+          >
+            <FontAwesomeIcon icon={faTshirt} className="text-gray-500 mr-3 w-5 h-5" />
+            Fashion & Beauty
+          </li>
+          <li 
+            className="flex items-center text-sm font-light py-2 px-2 rounded-lg hover:bg-gray-100 cursor-pointer" 
+            onClick={() => handleExploreClick("Podcasts")}
+          >
+            <FontAwesomeIcon icon={faPodcast} className="text-gray-500 mr-3 w-5 h-5" />
+            Podcasts
           </li>
         </ul>
       </div>

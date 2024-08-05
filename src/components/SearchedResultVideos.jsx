@@ -1,20 +1,17 @@
 import React from "react";
-import {  useSelector } from "react-redux";
 
 const SearchedResultVideos = ({ data,channelImages }) => {
   const { snippet } = data;
   const { channelTitle, title, description } = snippet;
   const { high } = snippet.thumbnails;
-  const videoId = snippet.channelId;
 
-  const liveState = useSelector((store) => store.live[videoId]);
 
   return (
-    <div>
-      <div className="flex md:flex-row flex-col md:ml-48 w-auto my-4 md:p-0 p-3">
-        <div className="md:ml-48 md:w-78 h-64  overflow-hidden flex-shrink-0">
+    <div className="mt-4">
+      <div className="flex md:flex-row flex-col md:ml-72  w-auto  md:p-0 p-3">
+        <div className="md:mr-3 md:w-[500px] md:h-72 w-auto h-60 overflow-y-hidden ">
           <img
-            className="rounded-xl w-full h-full object-cover border-none"
+            className="rounded-2xl w-full h-full object-cover"
             src={high.url}
             alt=""
           />
@@ -22,10 +19,10 @@ const SearchedResultVideos = ({ data,channelImages }) => {
 
         <div className="flex flex-col pt-2 ">
           <div>
-            <h1 className="md:block hidden md:text-xl font-medium text-gray-900">
+            <h1 className="md:block hidden w-10/12 md:text-lg  text-gray-900">
               {title}
             </h1>
-            <div className="md:flex hidden text-gray-600 text-sm mt-1">
+            <div className="md:flex hidden text-gray-500 text-sm mt-1">
               <p className="mr-2">10k views</p>
               <p>•</p>
               <p className="ml-2">10 days ago</p>
@@ -42,7 +39,7 @@ const SearchedResultVideos = ({ data,channelImages }) => {
                 {title}
               </h1>
               <div className="flex items-center">
-                <h1 className="text-sm text-gray-700 mr-1">{channelTitle}</h1>
+                <h1 className="text-sm text-gray-500 mr-1">{channelTitle}</h1>
                 <div className="md:hidden flex text-gray-600 text-sm ">
                   <p className="mr-2">10k views</p>
                   <p>•</p>
@@ -52,20 +49,20 @@ const SearchedResultVideos = ({ data,channelImages }) => {
             </div>
           </div>
           <div>
-            <p className="md:block hidden text-sm text-gray-700 line-clamp-2">
+            <p className="md:block hidden text-sm text-gray-500 line-clamp-2">
               {description}
             </p>
           </div>
           <div className="md:block hidden w-8 h-8 mt-2">
-            {liveState && (
+            {data.snippet.liveBroadcastContent === 'live' ? (
               <div className="flex bg-red-600">
-                <img
+                <img className="w-6"
                   src="https://static.vecteezy.com/system/resources/previews/005/260/970/non_2x/live-stream-live-icon-live-streaming-icon-symbol-free-vector.jpg"
                   alt=""
                 />
-                <h1 className="px-2 rounded bg-red-600 text-white p-1">Live</h1>
+                <h1 className="h-6 px-1 rounded bg-red-600 text-white ">Live</h1>
               </div>
-            )}
+            ):null}
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ const SearchResults = () => {
     });
     const querryString = ids.join(",");
     const info = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${querryString}&key=AIzaSyBteBxDlUGtpjqbjrXn9Ekk2r3m_wnIbYI`
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${querryString}&key=AIzaSyADJHNQq-nUrY0D0YeyLODt7OFkPPfoxW0`
     );
     const images = await info.json();
 
@@ -36,7 +36,7 @@ const SearchResults = () => {
     setChannelImage(channelImages);
   };
   return (
-    <div>
+    <div className="mt-20">
       {searchList.map((data) => {
         return (
           <Link key={data.id} to={"/watch?v=" + data.id.videoId}>
