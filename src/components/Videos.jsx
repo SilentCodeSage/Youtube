@@ -1,46 +1,51 @@
-import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Shimmer from "./Shimmer";
+import { formatViewCount } from "./utils/viewCountNormalizer";
+import { formatPublishedDate } from "./utils/viewCountNormalizer";
+import { setwatchingVideoData } from "./utils/videoSlice";
 
-const Videos = ({ info }) => {
-  const [channelImage, setChannelImage] = useState(null);
-
-  useEffect(()=>{
-    fetchData();
-    
-  },[])
-
-  const fetchData = async () =>{
-    const data = await fetch(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=AIzaSyADJHNQq-nUrY0D0YeyLODt7OFkPPfoxW0`);
-    const json = await data.json();
-    //console.log(json.items[0].snippet.thumbnails.high.url);
-    setChannelImage(json.items[0].snippet.thumbnails.high.url)
-  }
-  //destructing info
+const Videos = ({ info, channelImage }) => {
+  console.log(info)
+  const dispatch = useDispatch();
   const { snippet } = info;
   const { statistics } = info;
-  const { channelTitle, title, thumbnails,channelId } = snippet;
+  const { channelTitle, title, thumbnails } = snippet;
   const { viewCount } = statistics;
   const { high } = thumbnails;
-  
-  // console.log(info)
 
   return (
-  <div>
-    {
-      channelImage !== null?<div className="w-96 md:w-80 2xl:w-96  rounded-md p-2 m-4 h-auto">
-      <div className="h-52 ">
-        <img className="rounded-xl w-full h-full object-cover border-none" src={high.url} alt="" />
-      </div>
-      <h1 className="font-medium my-4 flex"><img className="mr-2 w-10 h-10 rounded-full" src={channelImage} alt="" />{title}</h1>
-      <div className="">
-        <h1 className=" text-slate-700 text-sm ml-10">{channelTitle}</h1>
-        <p className=" text-slate-700 text-sm ml-10">{viewCount} views</p>
-      </div>
-    </div>:<Shimmer />
-    }
-    
-  </div>
-    
+    <div  onClick={()=>dispatch(setwatchingVideoData({channelId:info.snippet.channelId,videoId:info.id}))}>
+      {channelImage !== null ? (
+        <div className="flex flex-col justify-between w-96 md:w-80 2xl:w-96 rounded-md p-2 my-2 h-80">
+          <div className="h-52 mb-1">
+            <img
+              className="rounded-xl w-full h-full object-cover border-none"
+              src={high.url}
+              alt=""
+            />
+          </div>
+          <div className="flex items-start justify-start h-12 overflow-hidden">
+            <img
+              className="mr-2 w-10 h-10 rounded-full "
+              src={channelImage}
+              alt=""
+            />
+            <h1 className="font-medium text-base flex items-center overflow-hidden line-clamp-1">
+              {title}
+            </h1>
+          </div>
+
+          <div className="ml-2">
+            <h1 className="text-slate-700 text-sm ml-10">{channelTitle}</h1>
+            <p className="text-slate-700 text-sm ml-10">
+              {formatViewCount(viewCount)} • {formatPublishedDate(info.snippet.publishedAt)}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <Shimmer />
+      )}
+    </div>
   );
 };
 

@@ -24,5 +24,4 @@ const firstNames = [
   };
   
   // Example usage (uncomment to test the function directly)
-  // console.log(generateRandomName());
   
