@@ -104,7 +104,7 @@ const Header = () => {
             </div>
 
             {isSuggestions === true ? (
-              <Link to="/search"> <Suggestions suggestions={suggestions} /></Link>
+              <Link  to="/search"> <Suggestions suggestions={suggestions} /></Link>
               
             ) : null}
           </div>

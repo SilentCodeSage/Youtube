@@ -19,7 +19,7 @@ const Sidebar = () => {
   };
   const dispatch = useDispatch()
   return (
-    <div className="absolute left-0 md:relative z-10 bg-white mr-52 overflow-hidden hover:overflow-y-scroll">
+    <div className="absolute left-0 md:relative z-10 bg-white mr-56 overflow-hidden hover:overflow-y-scroll">
       <div className="bg-white fixed w-1.5/12 px-8 py-2 pb-32 shadow h-screen hover:overflow-scroll">
         <Link to="/">
           <h1 className="flex items-center text-base font-normal py-2 rounded-lg hover:bg-gray-100 cursor-pointer">

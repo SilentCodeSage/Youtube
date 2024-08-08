@@ -5,7 +5,7 @@ import { formatPublishedDate } from "./utils/viewCountNormalizer";
 import { setwatchingVideoData } from "./utils/videoSlice";
 
 const Videos = ({ info, channelImage }) => {
-  
+  console.log(info)
   const dispatch = useDispatch();
   const { snippet } = info;
   const { statistics } = info;
@@ -14,7 +14,7 @@ const Videos = ({ info, channelImage }) => {
   const { high } = thumbnails;
 
   return (
-    <div onClick={()=>dispatch(setwatchingVideoData(info))}>
+    <div  onClick={()=>dispatch(setwatchingVideoData({channelId:info.snippet.channelId,videoId:info.id}))}>
       {channelImage !== null ? (
         <div className="flex flex-col justify-between w-96 md:w-80 2xl:w-96 rounded-md p-2 my-2 h-80">
           <div className="h-52 mb-1">

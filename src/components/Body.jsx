@@ -10,7 +10,7 @@ const isMenuOpen = useSelector((store) => store.app.isOpen);
   
   return (
     <div >
-      <div className='flex justify-center md:mt-14 mt-10 md:pt-0 pt-4'>
+      <div className='flex md:justify-normal justify-center md:mt-14 mt-10 md:pt-0 pt-4'>
         {
           isMenuOpen === true? <Sidebar />:  <SmallSideBar />
         }

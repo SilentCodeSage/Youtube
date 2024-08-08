@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SearchResults from "./components/SearchResults";
 
 const Layout = ({ children }) => (
-  <div>
+  <div className="w-screen">
     <Header />
     {children}
   </div>
@@ -28,12 +28,13 @@ const appRouter = createBrowserRouter([
         path: "watch",
         element: <Watch />,
       },
+      {
+        path: "search",
+        element: <Layout><SearchResults /></Layout>,
+      },
     ],
   },
-  {
-    path: "search",
-    element: <Layout><SearchResults /></Layout>,
-  },
+  
 ]);
 
 function App() {

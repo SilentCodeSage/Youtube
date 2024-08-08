@@ -9,10 +9,11 @@ const SearchResults = () => {
   const [channelImage, setChannelImage] = useState({});
 
   const searchQueryString = useSelector((store) => store.search.searchQuery);
+  console.log(searchQueryString)
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchQueryString]);
   const fetchData = async () => {
     const data = await fetch(
       `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQueryString}&key=AIzaSyDmG0ixJl2PETtD8O_M2hhOhPwIBk_tBCA`
@@ -37,9 +38,9 @@ const SearchResults = () => {
   };
   return (
     <div className="mt-20">
-      {searchList.map((data) => {
+      {searchList && searchList.map((data) => {
         return (
-          <Link key={data.id} to={"/watch?v=" + data.id.videoId}>
+          data && <Link  to={"/watch?v=" + data.id.videoId}>
             <SearchedResultVideos data={data} channelImages={channelImage[data.snippet.channelId]}/>
           </Link>
         );

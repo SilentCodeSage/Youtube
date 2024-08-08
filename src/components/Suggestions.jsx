@@ -8,13 +8,14 @@ import { toggleSuggestions } from "./utils/appSlice";
 const Suggestions = ({suggestions}) => {
     //const isSuggestions = useSelector((store) => store.app.isSuggestions);
 const dispatch = useDispatch();
+console.log(suggestions[0])
   return (
     <div className="flex justify-center">
       <div className=" mt-1 shadow-2xl border border-gray-200 rounded-xl absolute bg-white w-96 md:w-[38rem]">
         <ul className="my-4">
           {suggestions.map((data, index) => (
             //suggestions.length!==0 &&
-            <li
+            <li 
               key={index}
               onClick={() => {
                 dispatch(toggleState());

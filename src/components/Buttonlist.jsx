@@ -8,7 +8,7 @@ const Buttonlist = () => {
   return (
     <div className='bg-white '>
       
-      <div className='flex md:px-2 px-4 fixed bg-white  w-full overflow-x-scroll scrollbar-none'>
+      <div className='flex md:px-2 px-1 fixed bg-white  w-full overflow-x-scroll scrollbar-none'>
       
       {
         categoryEntries.map((data,index)=>{
@@ -20,4 +20,4 @@ const Buttonlist = () => {
   )
 }
 
-export default Buttonlist
+export default Buttonlist;

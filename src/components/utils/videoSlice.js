@@ -4,7 +4,10 @@ const VideoSlice = createSlice({
     name:"video",
     initialState:{
         videoData:null,
-        watchingVideoData:null,
+        watchingVideoData:{
+            channelId:null,
+            videoId:null,
+        },
         channelIdList:null,
     },
     reducers:{
