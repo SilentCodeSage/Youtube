@@ -10,15 +10,21 @@ import {
   faSave,
   faEllipsisH,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import { formatViewCount } from "./utils/viewCountNormalizer";
-import { formatPublishedDate } from "./utils/viewCountNormalizer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  formatViewCount,
+  formatPublishedDate,
+} from "./utils/viewCountNormalizer";
+import { toggleDescreption } from "./utils/appSlice";
 
 const PlayingVideoInfo = () => {
   const [channelInfo, setChannelInfo] = useState(null);
   const [videoInfo, setVideoInfo] = useState(null);
   const info = useSelector((store) => store.video.watchingVideoData);
+  const isDescreption = useSelector((store) => store.app.isDescreption);
+  const dispatch = useDispatch();
   console.log(info);
+
   useEffect(() => {
     fetchData();
   }, [info]);
@@ -30,6 +36,7 @@ const PlayingVideoInfo = () => {
     const final = await result.json();
     console.log(final.items[0]);
     setVideoInfo(final.items[0]);
+
     const data = await fetch(
       `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${info.channelId}&key=AIzaSyADJHNQq-nUrY0D0YeyLODt7OFkPPfoxW0`
     );
@@ -38,17 +45,15 @@ const PlayingVideoInfo = () => {
   };
 
   return (
-    <div className="md:w-full w-screen  p-2">
+    <div className="md:w-full w-screen p-2">
       {videoInfo && (
         <div className="md:mt-0 mt-64">
           <div>
-            <h1 className="text-xl font-bold py-2">
-              {videoInfo.snippet.title}
-            </h1>
+            <h1 className="text-xl font-bold py-2">{videoInfo.snippet.title}</h1>
           </div>
           <div className="flex md:flex-row flex-col">
             <div className="flex md:w-4/12 justify-between mb-2">
-              <div className="flex  items-center ">
+              <div className="flex items-center">
                 <div className="pr-2">
                   <img
                     className="rounded-full"
@@ -56,16 +61,13 @@ const PlayingVideoInfo = () => {
                     alt=""
                   />
                 </div>
-
                 <div className="pr-5">
                   <h1 className="font-medium">
                     {videoInfo.snippet.channelTitle}
                   </h1>
                   <p className="text-sm text-gray-600">
                     {channelInfo &&
-                      formatViewCount(
-                        channelInfo.statistics.subscriberCount
-                      )}{" "}
+                      formatViewCount(channelInfo.statistics.subscriberCount)}{" "}
                     subscribers
                   </p>
                 </div>
@@ -78,10 +80,10 @@ const PlayingVideoInfo = () => {
             </div>
             <div className="flex md:justify-end justify-end md:w-8/12 w-full overflow-x-scroll scrollbar-none">
               <div className="flex items-center overflow-x-scroll scrollbar-none">
-                <div className="flex px-4 py-2 items-center border  mx-1 border-gray-300 rounded-3xl">
+                <div className="flex px-4 py-2 items-center border mx-1 border-gray-300 rounded-3xl">
                   <div className="flex items-center">
                     <FontAwesomeIcon className="pr-2" icon={faThumbsUp} />
-                    {formatViewCount(videoInfo?.statistics?.likeCount) + "|"}
+                    {formatViewCount(videoInfo?.statistics?.likeCount) + " | "}
                     <FontAwesomeIcon className="pl-2" icon={faThumbsDown} />
                   </div>
                 </div>
@@ -89,7 +91,7 @@ const PlayingVideoInfo = () => {
                   <FontAwesomeIcon className="pr-2" icon={faShare} />
                   Share
                 </div>
-                <div className="flex px-4 py-2  items-center border mx-1 border-gray-300 rounded-3xl">
+                <div className="flex px-4 py-2 items-center border mx-1 border-gray-300 rounded-3xl">
                   <FontAwesomeIcon className="pr-2" icon={faDownload} />
                   Download
                 </div>
@@ -107,20 +109,29 @@ const PlayingVideoInfo = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-100 rounded-xl mt-3 h-24  p-3 overflow-hidden">
+          <div
+            className={`bg-gray-100 rounded-xl mt-3  p-3 md:relative ${
+              isDescreption ? "max-h-[7rem] overflow-hidden" : "h-auto"
+            }`}
+          >
             <div>
               <h1 className="font-medium">
-                {formatViewCount(videoInfo.statistics.viewCount)} views{" "}
+                {formatViewCount(videoInfo.statistics.viewCount)} views
                 <span className="mx-2"></span>
                 {formatPublishedDate(videoInfo.snippet.publishedAt)}
               </h1>
             </div>
-            <div className="">
+            <div>
               <p className="text-sm text-gray-700 leading-relaxed mt-2">
                 {videoInfo.snippet.description}
               </p>
             </div>
-            <button>Show more</button>
+            <button
+              onClick={() => dispatch(toggleDescreption())}
+              className="font-medium absolute bottom-2 right-1 mr-2"
+            >
+              {isDescreption ? "...more" : "Show less"}
+            </button>
           </div>
         </div>
       )}

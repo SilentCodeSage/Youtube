@@ -24,7 +24,7 @@ const Comments = ({ id }) => {
         <h1 className="font-medium text-xl"> 500 Comments</h1>
           {
             commentData && commentData.map((data)=>{
-                return <CommentsList commentsData={data} />
+                return <CommentsList id={data.id} commentsData={data} />
             })
           }
           
