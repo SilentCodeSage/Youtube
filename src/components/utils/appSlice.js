@@ -8,6 +8,7 @@ const appSlice = createSlice({
     isSuggestions:false,
     isReplies:false,
     isDescreption:false,
+    toggleComments:false
   },
   reducers: {
     toggleMenu: (state) => {
@@ -31,8 +32,14 @@ const appSlice = createSlice({
       state.isDescreption = !state.isDescreption;
       
     },
+    showToggleComments: (state) => {
+      state.toggleComments = true;
+    },
+    hideToggleComments: (state) => {
+      state.toggleComments = false;
+    },
   },
 });
 
 export default appSlice.reducer;
-export const { toggleMenu, closeMenu, toggleState,toggleSuggestions,toggleReplies,toggleDescreption } = appSlice.actions;
+export const { toggleMenu, closeMenu,showToggleComments,hideToggleComments, toggleState,toggleSuggestions,toggleReplies,toggleDescreption } = appSlice.actions;

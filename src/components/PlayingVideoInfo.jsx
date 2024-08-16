@@ -18,6 +18,8 @@ import {
 import { toggleDescreption } from "./utils/appSlice";
 
 const PlayingVideoInfo = () => {
+
+  const isComments = useSelector((store) => store.app.toggleComments);
   const [channelInfo, setChannelInfo] = useState(null);
   const [videoInfo, setVideoInfo] = useState(null);
   const info = useSelector((store) => store.video.watchingVideoData);
@@ -46,7 +48,7 @@ const PlayingVideoInfo = () => {
 
   return (
     <div className="md:w-full w-screen p-2">
-      {videoInfo && (
+      {!isComments && videoInfo && (
         <div className="md:mt-0 mt-64">
           <div>
             <h1 className="text-xl font-bold py-2">{videoInfo.snippet.title}</h1>
@@ -82,9 +84,10 @@ const PlayingVideoInfo = () => {
               <div className="flex items-center overflow-x-scroll scrollbar-none">
                 <div className="flex px-4 py-2 items-center border mx-1 border-gray-300 rounded-3xl">
                   <div className="flex items-center">
-                    <FontAwesomeIcon className="pr-2" icon={faThumbsUp} />
-                    {formatViewCount(videoInfo?.statistics?.likeCount) + " | "}
-                    <FontAwesomeIcon className="pl-2" icon={faThumbsDown} />
+                    <span><FontAwesomeIcon className="pr-2" icon={faThumbsUp} /></span>
+                    <span>{formatViewCount(videoInfo?.statistics?.likeCount)}</span>
+                    <span className="mx-2">|</span>
+                   <span> <FontAwesomeIcon className="pl-2" icon={faThumbsDown} /></span>
                   </div>
                 </div>
                 <div className="flex px-4 py-2 items-center border mx-1 border-gray-300 rounded-3xl">
@@ -110,7 +113,7 @@ const PlayingVideoInfo = () => {
             </div>
           </div>
           <div
-            className={`bg-gray-100 rounded-xl mt-3  p-3 md:relative ${
+            className={`bg-gray-100 md:block hidden rounded-xl mt-3  p-3 md:relative ${
               isDescreption ? "max-h-[7rem] overflow-hidden" : "h-auto"
             }`}
           >
@@ -128,7 +131,7 @@ const PlayingVideoInfo = () => {
             </div>
             <button
               onClick={() => dispatch(toggleDescreption())}
-              className="font-medium absolute bottom-2 right-1 mr-2"
+              className=" bg-gray-100 pl-2 font-medium absolute  right-1 mr-2 bottom-0"
             >
               {isDescreption ? "...more" : "Show less"}
             </button>

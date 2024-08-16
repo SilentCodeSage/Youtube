@@ -13,16 +13,22 @@ export const rec = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANsAAADmCAMAAA
 //     { id: "27", name: "Education" } // Educational content
 //   ];
 export const categoryIds = {
-    "Music": 10,
-    "Sports": 17,
-    "Gaming": 20,
-    "News": 25,
-    "Entertainment": 24,
-    "Movies": 1,               // Verify as needed
-    "Science": 28,
-    "Fashion": 26,
-    // No direct ID for "Courses" or "Podcasts"; consider using similar categories
-  };
+  "All": 20,
+  "Music": 10,
+  "Sports": 17,
+  "Gaming": 20,
+  "News": 25,
+  "Entertainment": 24,
+  "Movies": 30,               // Corrected Movies ID
+  "Science": 28,
+  "Fashion": 26,
+  "Travel": 19,
+  "Comedy": 23,
+  "Education": 27,
+  "Shows": 43,
+  // No direct ID for "Courses" or "Podcasts"; consider using similar categories like "Education"
+};
+
   
   
   

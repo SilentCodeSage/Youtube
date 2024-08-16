@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setVideoData } from './utils/videoSlice';
 import { useSelector } from 'react-redux';
+import Shimmer from './Shimmer';
 
 const VideoContainer = () => {
     const [channelImages,setChannelImages] = useState({});
@@ -42,8 +43,8 @@ const VideoContainer = () => {
         setChannelImages(images);
     }
 
-    return info === null ? null : (
-        <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-12 mt-14'>
+    return info === null ? <Shimmer /> : (
+        <div className='w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 mt-14 '>
             {info.map((data) => (
                 <Link key={data.id} to={"/watch?v=" + data.id}>
                     <Videos info={data} channelImage={channelImages[data.snippet.channelId]} />

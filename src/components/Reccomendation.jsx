@@ -4,7 +4,6 @@ import {
   formatViewCount,
   formatPublishedDate,
 } from "./utils/viewCountNormalizer";
-import Buttonlist from "./Buttonlist";
 import { Link } from "react-router-dom";
 import { setwatchingVideoData } from "./utils/videoSlice";
 
@@ -18,9 +17,17 @@ const Reccomendation = ({ id }) => {
 
   return (
     <div  className="p-2 space-y-4 md:w-11/12 w-12/12 md:pl-5 cursor-pointer ">
+      {console.log(recomendedVideos)}
       {recomendedVideos && recomendedVideos.map((data) => (
           <Link to={"/watch?v=" + data.id}>
-          <div onClick={()=>dispatch(setwatchingVideoData(data))}
+          <div onClick={() =>
+        dispatch(
+          setwatchingVideoData({
+            channelId: data.snippet.channelId,
+            videoId: data.id,
+          })
+        )
+      }
             key={data.id.videoId}
             className="flex md:flex-row flex-col items-center space-y-2 my-2 md:space-y-0"
           >

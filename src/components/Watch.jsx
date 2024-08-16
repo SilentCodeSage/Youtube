@@ -12,9 +12,7 @@ import Comments from "./Comments";
 
 const Watch = () => {
   const dispatch = useDispatch();
-  const isLiveChatEnabled = useSelector((store) => store.livechat);
 
-  // It allows you to access the query parameters (the parts of the URL that come after the ?).
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -58,23 +56,14 @@ const Watch = () => {
         </div>
 
         <div className="">
-          {/* render this component only if the playing vidoe has a liveVideoId */}
-          {
-            //isLiveChatEnabled && <LiveChat/>
-          }
         </div>
         <div className="md:w-4/12 w-12/12 mt-4">
-          {/* <div className="md:block hidden"> */}
-          {/* <Buttonlist /> */}
-          {/* </div> */}
 
           <div className=" ">
             <Reccomendation id={searchParams.get("v")} />
           </div>
         </div>
       </div>
-
-      {/* <CommentsContainer /> */}
     </div>
   );
 };

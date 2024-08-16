@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { setVideoData } from './utils/videoSlice'
 import { useDispatch } from 'react-redux'
@@ -19,7 +19,7 @@ const Button = (props) => {
   }
   return (
     <div>
-        <button onClick={()=>buttonListVideos()} className='focus:bg-black focus:text-white p-2 px-3 m-2 bg-gray-200 opacity-100 border rounded-lg'>{props.name}</button>
+        <button onClick={()=>buttonListVideos()} className='content-normal focus:bg-black focus:text-white w-auto p-1 px-3 m-2 bg-gray-200 opacity-100 border rounded-lg'>{props.name}</button>
     </div>
   )
 }
