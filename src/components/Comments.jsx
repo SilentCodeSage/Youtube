@@ -26,19 +26,18 @@ const Comments = ({ id }) => {
       {!isComments && (
         <div 
           onClick={() => dispatch(showToggleComments())}
-          className="bg-gray-200 md:hidden   h-20 w-11.5/12 rounded-2xl mx-2 p-3 flex flex-col"
+          className="bg-gray-200 md:hidden   h-20 w-11.5/12 rounded-2xl mx-2 p-3 flex items-center"
         >
           <h1 >
             <span className="font-bold text-lg">Comments </span>
             <span className="text-gray-500"> :</span>
           </h1>
-          <p className="ml-32">click to view comments</p>
         </div>
       )}
 
       <div className="py-4 px-2">
         <div className="">
-         { isComments && <div className="flex justify-between mt-64">
+         { isComments && <div className="flex justify-between md:mt-0 mt-64">
             <h1 className="font-medium text-xl"> 500 Comments</h1>
             <span
               onClick={() => dispatch(hideToggleComments())}

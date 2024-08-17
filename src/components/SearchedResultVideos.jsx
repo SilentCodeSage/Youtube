@@ -27,9 +27,9 @@ const SearchedResultVideos = ({ data, channelImages }) => {
       {data.id.kind === "youtube#video" ? (
         <div
           onClick={handleClick}
-          className="flex md:flex-row flex-col md:ml-72 w-auto md:p-0 p-3 cursor-pointer"
+          className="flex md:flex-row flex-col md:ml-56 w-auto md:p-0 p-3 cursor-pointer"
         >
-          <div className="md:mr-3 md:w-[500px] md:h-72 w-auto h-60 overflow-hidden">
+          <div className="md:mr-3 md:w-[500px] md:h-72 w-full h-52 overflow-hidden">
             <img
               className="rounded-2xl w-full h-full object-cover"
               src={high.url}

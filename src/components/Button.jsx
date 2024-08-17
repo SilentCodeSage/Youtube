@@ -19,8 +19,12 @@ const Button = (props) => {
   }
   return (
     <div>
+      <div>
         <button onClick={()=>buttonListVideos()} className='content-normal focus:bg-black focus:text-white w-auto p-1 px-3 m-2 bg-gray-200 opacity-100 border rounded-lg'>{props.name}</button>
     </div>
+    
+    </div>
+    
   )
 }
 
