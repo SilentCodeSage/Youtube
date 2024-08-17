@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMenu } from "./utils/appSlice";
+import { toggleMenu, toggleSuggestions } from "./utils/appSlice";
 import { cacheResults } from "./utils/searchSlice";
 import { toggleState } from "./utils/appSlice";
 import { newSearchQuery } from "./utils/searchSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Suggestions from "./Suggestions";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ const Header = () => {
   const [searchData, setSearchData] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const searchCache = useSelector((store) => store.search);
+  const searchCache = useSelector((store) => store.search.search);
+
+  const isSuggestions = useSelector((store) => store.app.isSuggestions);
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
@@ -24,8 +27,9 @@ const Header = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       /// if cached and data is found in the cache
-      if (searchCache[searchData]) {
-        setSearchData(searchData);
+       if  (searchCache && searchCache[searchData]) {
+        // setSearchData(searchData);
+        setSuggestions(searchCache[searchData]);
       } else {
         fetchData();
       }
@@ -76,16 +80,17 @@ const Header = () => {
             <div className="flex  justify-end md:justify-center w-full">
               <input
                 placeholder="Search"
-                className="border rounded-full md:rounded-l-full w-2 md:w-full h-10 px-8 text-black focus:ml-0 focus:outline-gray-200 focus:w-full md:focus:outline-gray-300 focus:shadow-inner"
+                className="border rounded-full md:rounded-l-full md:rounded-r-none w-1 h-10 md:w-full md:h-10 px-8 text-black focus:ml-0 focus:outline-gray-200 focus:w-full md:focus:outline-gray-300 focus:shadow-inner"
                 type="text"
                 name="search"
                 id=""
                 onChange={(e) => setSearchData(e.target.value)}
-                onFocus={() => setShowSuggestions(true)}
+                onFocus={() => dispatch(toggleSuggestions(true))}
                 onBlur={() => {
                   //giving 100 ms before bluring to slelct from list
                   setTimeout(() => {
-                    setShowSuggestions(false);
+                    // setShowSuggestions(false);
+                    dispatch(toggleSuggestions(false));
                   }, 100);
                 }}
               />
@@ -98,37 +103,9 @@ const Header = () => {
               </button>
             </div>
 
-            {showSuggestions === true ? (
-              <div className="flex justify-center">
-                <div
-                  className=" mt-1 shadow-2xl border border-gray-200 rounded-xl absolute bg-white
-                      //suggestions.length!==0 && w-96 md:w-[38rem]"
-                >
-                  <ul className="my-4">
-                    {suggestions.map((data, index) => (
-                      //suggestions.length!==0 &&
-                      <li
-                        key={index}
-                        onClick={() => {
-                          dispatch(toggleState());
-                          //setting the searchQuery Result from suggestions  array to the variable inside the store using the reducer newSearchQuery
-                          dispatch(newSearchQuery(data));
-                          //hiding the suggestions after clicking
-                          setShowSuggestions(false);
-                        }}
-                        className="flex items-center hover:bg-gray-100 px-4 py-2 cursor-pointer text-black"
-                      >
-                        <img
-                          className="w-5 h-5 mr-3"
-                          src="https://cdn-icons-png.flaticon.com/512/54/54481.png"
-                          alt=""
-                        />
-                        {"  " + data}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+            {isSuggestions === true ? (
+              <Link  to="/search"> <Suggestions suggestions={suggestions} /></Link>
+              
             ) : null}
           </div>
         </div>

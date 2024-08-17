@@ -1,36 +1,18 @@
 import React from 'react'
 import Button from './Button'
-
+import { categoryIds } from './utils/constants'
 const Buttonlist = () => {
-  const categories = [
-    'Home',
-    'Trending',
-    'Subscriptions',
-    'Library',
-    'Music',
-    'Shorts',
-    'Gaming',
-    'Movies',
-    'Sports',
-    'Playlists',
-    'Notifications',
-    'Live',
-    'News',
-    'Tech',
-    'Science',
-    'Education',
-    'Vlogs',
-  ];
   
+  const categoryEntries = Object.entries(categoryIds);
   
   return (
     <div className='bg-white '>
       
-      <div className='flex px-2 fixed bg-white  w-full'>
+      <div className='flex   fixed bg-white  w-full overflow-x-scroll scrollbar-none'>
       
       {
-        categories.map((data,index)=>{
-           return <Button key={index} name={data}/>
+        categoryEntries.map((data,index)=>{
+           return <Button key={index} name={data[0]}/>
         })
       }
     </div>
@@ -38,4 +20,4 @@ const Buttonlist = () => {
   )
 }
 
-export default Buttonlist
+export default Buttonlist;

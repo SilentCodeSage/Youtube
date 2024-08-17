@@ -5,42 +5,42 @@ import Header from "./components/Header";
 import store from "./components/utils/store";
 import MainComponent from "./components/MainComponent";
 import Watch from "./components/Watch";
-import { BrowserRouter, createBrowserRouter } from "react-router-dom";
-import { RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SearchResults from "./components/SearchResults";
+
+const Layout = ({ children }) => (
+  <div className="w-screen">
+    <Header />
+    {children}
+  </div>
+);
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Body />,
+    element: <Layout><Body /></Layout>,
     children: [
       {
         path: "/",
         element: <MainComponent />,
       },
       {
-        path: "/watch",
+        path: "watch",
         element: <Watch />,
+      },
+      {
+        path: "search",
+        element: <Layout><SearchResults /></Layout>,
       },
     ],
   },
-  {
-    path: "/search",
-    element: <SearchResults />,
-  },
+  
 ]);
 
 function App() {
   return (
     <Provider store={store}>
-      <div>
-        {/* {since header has no Router Provider its wrapped inside a BrowserRouter} */}
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-
-        <RouterProvider router={appRouter} />
-      </div>
+      <RouterProvider router={appRouter} />
     </Provider>
   );
 }
